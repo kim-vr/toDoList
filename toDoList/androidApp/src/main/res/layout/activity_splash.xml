@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4491CF"
-    tools:context=".`SplashActivity.kt`">
+    tools:context=".SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewSplash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/logo_splash_screen"

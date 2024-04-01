@@ -8,25 +8,30 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.FragmentActivity
 import com.example.todolist.Greeting
+import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
+        //setContent {
+            /*MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     GreetingView(Greeting().greet())
                 }
-            }
-        }
-    }
-}
+            }*/
+        setContentView(R.layout.activity_main)
+    //}
+}}
 
-@Composable
+/*@Composable
 fun GreetingView(text: String) {
     Text(text = text)
 }
@@ -37,4 +42,5 @@ fun DefaultPreview() {
     MyApplicationTheme {
         GreetingView("Hello, Android!")
     }
-}
+}*/
+
