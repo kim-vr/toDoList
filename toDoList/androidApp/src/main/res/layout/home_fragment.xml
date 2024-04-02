@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeFragment"
+    tools:context=".HomeFragment"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:layout_marginLeft="@android:dimen/app_icon_size"
+    android:layout_marginRight="@android:dimen/app_icon_size"
+    android:layout_marginBottom="@android:dimen/app_icon_size">
+
+    <Button
+        android:id="@+id/allTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toutes les tâches"
+        android:layout_marginLeft="80dp"
+        android:backgroundTint="#B3E8B6"/>
+
+    <TextView
+        android:id="@+id/shownTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tâches urgentes"
+        android:textColor="@android:color/black"
+        android:textSize="30dp"
+        android:layout_marginLeft="50dp"/>
+
+    <ListView
+        android:id="@+id/list_host_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

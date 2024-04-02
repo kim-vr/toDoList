@@ -15,34 +15,12 @@
         android:layout_marginHorizontal="100dp"
         android:src="@drawable/logo_splash_screen"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        android:layout_marginLeft="@android:dimen/app_icon_size"
-        android:layout_marginRight="@android:dimen/app_icon_size"
-        android:layout_marginBottom="@android:dimen/app_icon_size">
+        android:layout_height="match_parent"/>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Consulter vos tâches"
-            android:layout_marginLeft="70dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tâches urgentes"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"
-            android:layout_marginLeft="50dp"/>
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
 
 </LinearLayout>

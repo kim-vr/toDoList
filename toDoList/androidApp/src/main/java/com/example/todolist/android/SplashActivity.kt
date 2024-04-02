@@ -19,7 +19,7 @@ class SplashActivity : ComponentActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        //Définit le temps d'apparition de l'écran
+        //Définit le temps d'apparition de l'écran : 3 secondes
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
