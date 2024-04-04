@@ -21,9 +21,10 @@ class TasksListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //Bouton d'ajout de tâches et sa gestion
         super.onViewCreated(view, savedInstanceState)
-        val fab = view.findViewById<FloatingActionButton>(R.id.addTaskButton)
-        fab.setOnClickListener {
-            // Gérer le clic ici, par exemple ouvrir une nouvelle activité ou afficher un dialogue pour ajouter une tâche
+        val addTask = view.findViewById<FloatingActionButton>(R.id.addTaskButton)
+        addTask.setOnClickListener {
+            val addTaskDialog = AddTaskDialogFragment()
+            addTaskDialog.show(parentFragmentManager, "AddTaskDialogFragment")
         }
     }
 
