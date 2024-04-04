@@ -21,8 +21,23 @@
         android:textColor="@android:color/black"
         android:textSize="30dp" />
 
-    <ListView
-        android:id="@+id/list_host_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:background="#fff">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+
+        <include layout="@layout/add_task_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"/>
+
+    </FrameLayout>
 </LinearLayout>

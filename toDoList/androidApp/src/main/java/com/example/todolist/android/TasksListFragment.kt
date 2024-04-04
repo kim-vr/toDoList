@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TasksListFragment : Fragment() {
 
@@ -17,4 +18,13 @@ class TasksListFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.tasks_list_fragment, container, false)
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //Bouton d'ajout de tâches et sa gestion
+        super.onViewCreated(view, savedInstanceState)
+        val fab = view.findViewById<FloatingActionButton>(R.id.addTaskButton)
+        fab.setOnClickListener {
+            // Gérer le clic ici, par exemple ouvrir une nouvelle activité ou afficher un dialogue pour ajouter une tâche
+        }
+    }
+
 }
