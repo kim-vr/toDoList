@@ -13,11 +13,18 @@ import java.util.Locale
 
 class AddTaskDialogFragment : DialogFragment() {
 
+    interface TaskDialogListener {
+        fun onTaskAdded(taskName: String, taskDate: String?, taskDescription: String?)
+    }
+
+    var listener: TaskDialogListener? = null
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.add_task_layout, null)
 
+        val nameInput = view.findViewById<EditText>(R.id.task_input)
         val dateInput = view.findViewById<EditText>(R.id.date_input)
         val descriptionInput = view.findViewById<EditText>(R.id.description_input)
 
@@ -36,7 +43,10 @@ class AddTaskDialogFragment : DialogFragment() {
         builder.setView(view)
             .setTitle("Ajouter une tâche")
             .setPositiveButton("Ajouter") { dialog, id ->
-                //TODO
+                val taskNameText = nameInput.text.toString() // Convertit le contenu de EditText en String
+                val taskDateText = dateInput.text.toString().let { if(it.isEmpty()) null else it } // Convertit et vérifie si le champ est vide
+                val taskDescriptionText = descriptionInput.text.toString().let { if(it.isEmpty()) null else it } // Idem pour la description
+                listener?.onTaskAdded(taskNameText, taskDateText, taskDescriptionText)
             }
             .setNegativeButton("Annuler") { dialog, id ->
                 dialog.cancel()

@@ -14,7 +14,7 @@
         android:padding="8dp">
 
         <CheckBox
-            android:id="@+id/taskCkeckBox"
+            android:id="@+id/taskCheckBox"
             android:layout_width="369dp"
             android:layout_height="48dp"
             android:buttonTint="@android:color/holo_green_light"
