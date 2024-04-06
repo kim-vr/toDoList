@@ -8,8 +8,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class TasksListAdapter(private val context: Context, private var tasks: MutableList<Task>) : BaseAdapter() {
@@ -48,6 +53,19 @@ class TasksListAdapter(private val context: Context, private var tasks: MutableL
 
         updateButtonState(viewHolder.taskState, task)
 
+        viewHolder.deleteTask.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                //Supprime dans la base de données
+                val dbHandler = DatabaseHandler(context)
+                dbHandler.deleteTask(task.id)
+
+                withContext(Dispatchers.Main) {
+                    tasks.removeAt(position)
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
         return view
     }
 
@@ -79,6 +97,7 @@ class TasksListAdapter(private val context: Context, private var tasks: MutableL
         val taskDate: TextView = view.findViewById(R.id.taskDate)
         val taskDescription: TextView = view.findViewById(R.id.taskDescription)
         val taskState: Button = view.findViewById(R.id.taskStateButton)
+        val deleteTask: ImageButton = view.findViewById(R.id.deleteTaskButton)
     }
 
     fun updateTasks(newTasks: MutableList<Task>) {

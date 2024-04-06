@@ -25,8 +25,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
             android:text="État"
             android:textColor="#fff"/>
+
+        <ImageButton
+            android:id="@+id/deleteTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/rounded_auto_delete_24"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"/>
 
         <LinearLayout
             android:id="@+id/linearLayoutForTexts"
