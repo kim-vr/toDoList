@@ -1,12 +1,12 @@
-package com.example.todolist.android
+package com.example.todolist.android.view
 
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.appcompat.app.AlertDialog
-import android.view.LayoutInflater
 import android.widget.EditText
+import com.example.todolist.android.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

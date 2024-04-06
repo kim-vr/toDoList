@@ -1,4 +1,4 @@
-package com.example.todolist.android
+package com.example.todolist.model
 
 
 enum class TaskState {

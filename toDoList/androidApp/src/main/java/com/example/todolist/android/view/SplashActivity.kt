@@ -1,4 +1,4 @@
-package com.example.todolist.android
+package com.example.todolist.android.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
+import com.example.todolist.android.R
 
 @Suppress("DEPRECATION")
 class SplashActivity : ComponentActivity() {

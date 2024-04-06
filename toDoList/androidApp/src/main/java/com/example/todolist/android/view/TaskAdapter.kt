@@ -1,4 +1,4 @@
-package com.example.todolist.android
+package com.example.todolist.android.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
+import com.example.todolist.android.R
+import com.example.todolist.model.Task
 
 class TaskAdapter(private val context: Context, private val tasks: ArrayList<Task>) : BaseAdapter() {
 

@@ -1,11 +1,12 @@
+package com.example.todolist.android.notifications
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.todolist.android.R
-import com.example.todolist.android.Task
+import com.example.todolist.model.Task
 import java.time.LocalDate
 
 object TaskReminderManager {

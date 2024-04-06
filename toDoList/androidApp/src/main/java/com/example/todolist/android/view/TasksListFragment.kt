@@ -1,20 +1,19 @@
-package com.example.todolist.android
+package com.example.todolist.android.view
 
-import TaskReminderManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import com.example.todolist.android.notifications.TaskReminderManager
 import android.graphics.drawable.Animatable
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import com.example.todolist.android.R
+import com.example.todolist.android.database.DatabaseHandler
+import com.example.todolist.model.Task
+import com.example.todolist.model.TaskState
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
@@ -23,7 +22,7 @@ import java.time.LocalDate
 interface AnimationCallback {
     fun showCheckAnimation()
 }
-class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener, AnimationCallback{
+class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener, AnimationCallback {
 
     companion object {
         fun newInstance() = TasksListFragment()
@@ -139,7 +138,9 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener, 
         val animationView = view?.findViewById<ImageView>(R.id.animationView)
         animationView?.let {
             it.visibility = View.VISIBLE
-            val drawable = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.animation)
+            val drawable = AnimatedVectorDrawableCompat.create(requireContext(),
+                R.drawable.animation
+            )
             it.setImageDrawable(drawable)
             (drawable as? Animatable)?.start()
 

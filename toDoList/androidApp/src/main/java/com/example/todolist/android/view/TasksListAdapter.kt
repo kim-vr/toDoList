@@ -1,4 +1,4 @@
-package com.example.todolist.android
+package com.example.todolist.android.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,7 +15,10 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import com.example.todolist.android.R
+import com.example.todolist.android.database.DatabaseHandler
+import com.example.todolist.model.Task
+import com.example.todolist.model.TaskState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
