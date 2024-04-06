@@ -1,23 +1,28 @@
 package com.example.todolist.android
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Animatable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-class TasksListAdapter(private val context: Context, private var tasks: MutableList<Task>) : BaseAdapter() {
+class TasksListAdapter(private val context: Context, private var tasks: MutableList<Task>, private val animationCallback: AnimationCallback) : BaseAdapter() {
 
     override fun getCount(): Int = tasks.size
 
@@ -42,6 +47,7 @@ class TasksListAdapter(private val context: Context, private var tasks: MutableL
                 task.isChecked = isChecked
                 updateTaskState(task)
                 notifyDataSetChanged()
+                animationCallback.showCheckAnimation()
             }
         }
 
@@ -92,6 +98,34 @@ class TasksListAdapter(private val context: Context, private var tasks: MutableL
         button.setBackgroundColor(ContextCompat.getColor(context, color))
     }
 
+    private fun showCheckAnimation() {
+        val activity = context as? Activity ?: return
+        val fragmentContainer = activity.findViewById<FrameLayout>(R.id.fragment_container)
+
+        val animationView = ImageView(context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            setImageDrawable(ContextCompat.getDrawable(context, R.drawable.animation))
+        }
+
+        fragmentContainer.addView(animationView)
+        (animationView.drawable as? Animatable)?.start()
+
+        animationView.postDelayed({
+            fragmentContainer.removeView(animationView)
+        }, 500)
+    }
+
+
+
+    fun updateTasks(newTasks: MutableList<Task>) {
+        this.tasks = newTasks
+        notifyDataSetChanged()
+    }
+
+
     class ViewHolder(view: View) {
         val taskName: CheckBox = view.findViewById(R.id.taskCheckBox)
         val taskDate: TextView = view.findViewById(R.id.taskDate)
@@ -100,8 +134,4 @@ class TasksListAdapter(private val context: Context, private var tasks: MutableL
         val deleteTask: ImageButton = view.findViewById(R.id.deleteTaskButton)
     }
 
-    fun updateTasks(newTasks: MutableList<Task>) {
-        this.tasks = newTasks
-        notifyDataSetChanged()
-    }
 }

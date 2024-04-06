@@ -3,20 +3,27 @@ package com.example.todolist.android
 import TaskReminderManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.graphics.drawable.Animatable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ListView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 import java.time.LocalDate
 
-class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
+interface AnimationCallback {
+    fun showCheckAnimation()
+}
+class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener, AnimationCallback{
 
     companion object {
         fun newInstance() = TasksListFragment()
@@ -36,7 +43,7 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = TasksListAdapter(requireContext(), tasks)
+        adapter = TasksListAdapter(requireContext(), tasks, this@TasksListFragment)
         val listView = view.findViewById<ListView>(R.id.listView)
         listView.adapter = adapter
 
@@ -127,6 +134,19 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
         }
         TaskReminderManager.setTaskReminder(requireContext(), newTask)
     }
+
+    override fun showCheckAnimation() {
+        val animationView = view?.findViewById<ImageView>(R.id.animationView)
+        animationView?.let {
+            it.visibility = View.VISIBLE
+            val drawable = AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.animation)
+            it.setImageDrawable(drawable)
+            (drawable as? Animatable)?.start()
+
+            it.postDelayed({ it.visibility = View.GONE }, 1000)  // Supposant que votre animation dure 1000ms
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
