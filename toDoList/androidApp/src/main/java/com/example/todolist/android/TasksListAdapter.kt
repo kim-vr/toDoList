@@ -12,7 +12,7 @@ class TasksListAdapter(private val context: Context, private val tasks: MutableL
 
     override fun getCount(): Int = tasks.size
 
-    override fun getItem(position: Int): Any = tasks[position]
+    override fun getItem(position: Int): Task = tasks[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -26,12 +26,13 @@ class TasksListAdapter(private val context: Context, private val tasks: MutableL
             view.tag = viewHolder
         } else {
             view = convertView
-            viewHolder = convertView.tag as ViewHolder
+            viewHolder = view.tag as ViewHolder
         }
 
-        val task = getItem(position) as Task
+        val task = getItem(position)
         viewHolder.taskName.text = task.name
         viewHolder.taskName.isChecked = task.isChecked
+
 
         return view
     }
@@ -40,8 +41,9 @@ class TasksListAdapter(private val context: Context, private val tasks: MutableL
         val taskName: CheckBox = view.findViewById(R.id.taskCheckBox)
     }
 
-    fun addTask(task: Task) {
-        tasks.add(task)
+    fun updateTasks(newTasks: List<Task>) {
+        tasks.clear()
+        tasks.addAll(newTasks)
         notifyDataSetChanged()
     }
 }
