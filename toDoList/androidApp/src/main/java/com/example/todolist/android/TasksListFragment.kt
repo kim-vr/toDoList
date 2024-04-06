@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.*
 import java.time.LocalDate
 
@@ -42,6 +43,38 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
             addTaskDialog.show(parentFragmentManager, "AddTaskDialogFragment")
         }
 
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabs)
+        // Configurez ici vos onglets, par exemple:
+        tabLayout.apply {
+            addTab(tabLayout.newTab().setText("Toutes"))
+            addTab(tabLayout.newTab().setText("Réalisées"))
+            addTab(tabLayout.newTab().setText("À faire"))
+            addTab(tabLayout.newTab().setText("En retard"))
+
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.let {
+                        val state = when (it.position) {
+                            1 -> TaskState.DONE
+                            2 -> TaskState.TODO
+                            3 -> TaskState.LATE
+                            else -> null
+                        }
+                        filterTasksByState(state)
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    // Ne rien faire
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    // Ne rien faire
+                }
+            })
+
+        }
+
         loadTasks()
     }
 
@@ -68,6 +101,16 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
                 dbHandler.updateTask(task) // Assurez-vous que cette méthode met à jour l'état dans la DB
             }
         }
+    }
+
+    private fun filterTasksByState(state: TaskState?) {
+        val filteredTasks = when (state) {
+            TaskState.DONE -> tasks.filter { it.state == TaskState.DONE }
+            TaskState.TODO -> tasks.filter { it.state == TaskState.TODO }
+            TaskState.LATE -> tasks.filter { it.state == TaskState.LATE }
+            else -> tasks
+        }
+        adapter.updateTasks(filteredTasks.toMutableList())
     }
 
     override fun onTaskAdded(taskName: String, taskDate: String?, taskDescription: String?) {
