@@ -43,6 +43,8 @@ class DatabaseHandler(context: Context?) :
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val description = cursor.getString(cursor.getColumnIndex(DESCRIPTION))
                 val isChecked = cursor.getInt(cursor.getColumnIndex(IS_CHECKED)) == 1
+                val stateName = cursor.getString(cursor.getColumnIndex(STATE))
+                val state = TaskState.valueOf(stateName)
 
                 val task = Task(id, name, date, description, isChecked)
                 taskList.add(task)
@@ -73,6 +75,7 @@ class DatabaseHandler(context: Context?) :
         cv.put(DATE, task.date)
         cv.put(DESCRIPTION, task.description)
         cv.put(IS_CHECKED, if (task.isChecked) 1 else 0)
+        cv.put(STATE, task.state.name)
         db.update(TASK_TABLE, cv, "$ID = ?", arrayOf(task.id.toString()))
         db.close()
     }
@@ -84,7 +87,7 @@ class DatabaseHandler(context: Context?) :
     }
 
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "TasksDatabase"
         private const val TASK_TABLE = "Tasks"
         private const val ID = "id"
@@ -92,12 +95,14 @@ class DatabaseHandler(context: Context?) :
         private const val DATE = "date"
         private const val DESCRIPTION = "description"
         private const val IS_CHECKED = "isChecked"
+        private const val STATE = "state"
 
         private const val CREATE_TASK_TABLE = "CREATE TABLE $TASK_TABLE (" +
                 "$ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$NAME TEXT, " +
                 "$DATE TEXT, " +
                 "$DESCRIPTION TEXT, " +
-                "$IS_CHECKED INTEGER)"
+                "$IS_CHECKED INTEGER," +
+                "$STATE TEXT DEFAULT 'TODO')"
     }
 }

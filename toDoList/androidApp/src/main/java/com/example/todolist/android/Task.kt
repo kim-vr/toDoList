@@ -1,9 +1,14 @@
 package com.example.todolist.android
 
+
+enum class TaskState {
+    TODO, LATE, DONE
+}
 data class Task(
     var id: Int = 0,
     val name: String,
     val date: String? = null,
     val description: String? = null,
-    val isChecked: Boolean = false
+    var isChecked: Boolean = false,
+    var state: TaskState = TaskState.TODO
 )

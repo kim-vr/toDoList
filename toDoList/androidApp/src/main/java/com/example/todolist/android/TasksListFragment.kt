@@ -8,6 +8,7 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
+import java.time.LocalDate
 
 class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
 
@@ -52,7 +53,20 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
                 tasks.clear()
                 tasks.addAll(newTasks)
             }
-            adapter.notifyDataSetChanged()
+            updateTaskStates()
+            adapter.updateTasks(tasks)
+        }
+    }
+
+    private fun updateTaskStates() {
+        val dbHandler = DatabaseHandler(requireContext())
+        val today = LocalDate.now()
+        tasks.forEach { task ->
+            val taskDate = task.date?.let { LocalDate.parse(it) }
+            if (!task.isChecked && taskDate != null && taskDate.isBefore(today)) {
+                task.state = TaskState.LATE
+                dbHandler.updateTask(task) // Assurez-vous que cette méthode met à jour l'état dans la DB
+            }
         }
     }
 

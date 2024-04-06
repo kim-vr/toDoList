@@ -1,3 +1,5 @@
 <resources>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="realisee">Réalisée</string>
+    <string name="a_faire">À faire</string>
 </resources>
