@@ -9,7 +9,7 @@
     android:contentDescription="Ajouter une tâche"
     android:clickable="true"
     android:focusable="true"
-    android:backgroundTint="#92BC9C"
+    android:backgroundTint="@android:color/holo_green_light"
     android:layout_gravity="bottom|end"
     tools:ignore="HardcodedText"
     android:src="@drawable/add_button_icon"/>

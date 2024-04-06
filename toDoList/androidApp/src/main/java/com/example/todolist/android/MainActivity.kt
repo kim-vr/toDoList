@@ -1,5 +1,6 @@
 package com.example.todolist.android
 
+import TaskReminderManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, TasksListFragment.newInstance())
                 .commitNow()
         }
+
+        TaskReminderManager.createNotificationChannel(this)
     }
 }
 

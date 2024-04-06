@@ -1,5 +1,9 @@
 <resources>
+    <string name="app_name">LifeSorter</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="realisee">Réalisée</string>
     <string name="a_faire">À faire</string>
+    <string name="channel_id">task_notifications</string>
+    <string name="channel_name">Notifications des tâches</string>
+    <string name="channel_description">Alertes pour les tâches urgentes et en retard</string>
 </resources>

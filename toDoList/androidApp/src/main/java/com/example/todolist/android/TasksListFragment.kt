@@ -1,10 +1,15 @@
 package com.example.todolist.android
 
+import TaskReminderManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
@@ -44,7 +49,6 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
         }
 
         val tabLayout = view.findViewById<TabLayout>(R.id.tabs)
-        // Configurez ici vos onglets, par exemple:
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("Toutes"))
             addTab(tabLayout.newTab().setText("Réalisées"))
@@ -65,16 +69,15 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    // Ne rien faire
+                    //Ne rien faire
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
-                    // Ne rien faire
+                    //Ne rien faire
                 }
             })
 
         }
-
         loadTasks()
     }
 
@@ -98,7 +101,7 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
             val taskDate = task.date?.let { LocalDate.parse(it) }
             if (!task.isChecked && taskDate != null && taskDate.isBefore(today)) {
                 task.state = TaskState.LATE
-                dbHandler.updateTask(task) // Assurez-vous que cette méthode met à jour l'état dans la DB
+                dbHandler.updateTask(task)
             }
         }
     }
@@ -122,6 +125,7 @@ class TasksListFragment : Fragment(), AddTaskDialogFragment.TaskDialogListener {
                 loadTasks()
             }
         }
+        TaskReminderManager.setTaskReminder(requireContext(), newTask)
     }
 
     override fun onDestroyView() {
